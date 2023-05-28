@@ -11,7 +11,7 @@ type Props = {
 
 export default function HomeLayout({ children }: Props) {
   return (
-    <div className="flex bg-neutral-50">
+    <div className="flex bg-neutral-100 gap-4">
       <HomeSidebar />
       <div className="w-full h-screen flex flex-col gap-2 pr-4">
         <nav className="flex justify-between items-center w-full h-[var(--header-height)]">

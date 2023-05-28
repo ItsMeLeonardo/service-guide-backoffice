@@ -33,6 +33,9 @@ const services = [
 export default function AdminSidebar() {
   return (
     <>
+      <Sidebar.Item href="services/create/" as={Link}>
+        Crear Guia
+      </Sidebar.Item>
       <Sidebar.Collapse label="Servicios">
         {services.map((service) => (
           <Sidebar.Item href={service.path} as={Link} key={service.name}>
