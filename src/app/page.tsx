@@ -1,7 +1,7 @@
 "use client";
 import { Button, TextInput } from "flowbite-react";
 
-export default function Home() {
+export default function Login() {
   return (
     <div className="container mx-auto flex items-center justify-center h-screen">
       <form className="max-w-[400px] w-full flex flex-col gap-4">

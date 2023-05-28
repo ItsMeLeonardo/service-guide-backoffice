@@ -14,5 +14,9 @@ module.exports = {
         pale: "rgba(0, 0, 0, 0.1) 0px 10px 50px",
       },
     },
+    fontFamily: {
+      sans: ["var(--font-sans)", "sans-serif"],
+      serif: ["var(--font-serif)", "serif"],
+    },
   },
 };

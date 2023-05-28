@@ -1,11 +1,18 @@
 import type { ReactNode } from "react";
 
 import "./globals.css";
-import { Montserrat_Alternates } from "next/font/google";
+import { Poppins, Philosopher } from "next/font/google";
 
-const montserrat = Montserrat_Alternates({
+const sanSerif = Poppins({
   weight: ["200", "400", "500", "600", "700", "800", "900"],
   subsets: ["latin-ext"],
+  variable: "--font-sans",
+});
+
+const serif = Philosopher({
+  weight: ["400", "700"],
+  subsets: ["latin"],
+  variable: "--font-serif",
 });
 
 export const metadata = {
@@ -14,9 +21,11 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
+  const fontsClasses = `${sanSerif.variable} ${serif.variable}`;
+
   return (
     <html lang="es">
-      <body className={montserrat.className}>{children}</body>
+      <body className={fontsClasses}>{children}</body>
     </html>
   );
 }
