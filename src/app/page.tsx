@@ -1,5 +1,6 @@
 "use client";
-import { Button, TextInput } from "flowbite-react";
+import { TextInput } from "flowbite-react";
+import Link from "next/link";
 
 export default function Login() {
   return (
@@ -10,7 +11,12 @@ export default function Login() {
         </header>
         <TextInput placeholder="Usuario" />
         <TextInput placeholder="Contraseña" />
-        <Button color="purple">Login</Button>
+        <Link
+          href="/home"
+          className="py-2 w-full bg-orange-100 ring-1 ring-orange-400 text-orange-500 text-center rounded-lg"
+        >
+          Login
+        </Link>
       </form>
     </div>
   );
