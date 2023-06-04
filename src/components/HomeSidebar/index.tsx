@@ -5,10 +5,15 @@ import EmployeeSidebar from "./EmployeeSidebar";
 import AdminSidebar from "./AdminSidebar";
 import Link from "next/link";
 import { useState } from "react";
+import { Service } from "@/domain/services/client";
 
 type UserType = "admin" | "employee";
 
-export default function HomeSidebar() {
+type Props = {
+  services: Service[];
+};
+
+export default function HomeSidebar({ services }: Props) {
   const [currentUser, setCurrentUser] = useState<UserType>("admin");
 
   const toggleUser = () => {
@@ -43,7 +48,7 @@ export default function HomeSidebar() {
             {currentUser === "employee" ? (
               <EmployeeSidebar />
             ) : (
-              <AdminSidebar />
+              <AdminSidebar services={services} />
             )}
           </Sidebar.ItemGroup>
         </Sidebar.Items>

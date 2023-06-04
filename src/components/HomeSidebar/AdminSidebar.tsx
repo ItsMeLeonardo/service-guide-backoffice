@@ -1,36 +1,14 @@
 "use client";
+import { Service } from "@/domain/services/client";
 import BellIcon from "@/icons/BellIcon";
 import { Sidebar } from "flowbite-react";
 import Link from "next/link";
 
-const services = [
-  {
-    name: "Transporte de carga",
-    path: "/services/transporte-de-carga",
-  },
-  {
-    name: "Mensajería",
-    path: "/services/mensajeria",
-  },
-  {
-    name: "Documentos valorados",
-    path: "/services/documentos-valorados",
-  },
-  {
-    name: "Servicios especiales",
-    path: "/services/servicios-especiales",
-  },
-  {
-    name: "Servicio Inhouse",
-    path: "/services/servicio-inhouse",
-  },
-  {
-    name: "Servicio aéreo",
-    path: "/services/servicio-aereo",
-  },
-];
+type Props = {
+  services: Service[];
+};
 
-export default function AdminSidebar() {
+export default function AdminSidebar({ services }: Props) {
   return (
     <>
       <Sidebar.Item href="services/create/" as={Link}>
@@ -38,7 +16,11 @@ export default function AdminSidebar() {
       </Sidebar.Item>
       <Sidebar.Collapse label="Servicios">
         {services.map((service) => (
-          <Sidebar.Item href={service.path} as={Link} key={service.name}>
+          <Sidebar.Item
+            href={`services/${service.id}`}
+            as={Link}
+            key={service.id}
+          >
             <span className="text-sm">{service.name}</span>
           </Sidebar.Item>
         ))}

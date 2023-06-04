@@ -4,15 +4,18 @@ import HomeSidebar from "@/components/HomeSidebar";
 import SearchIcon from "@/icons/SearchIcon";
 import Avatar from "@/components/Avatar";
 import BellIcon from "@/icons/BellIcon";
+import { listServices } from "@/application/service/server/use-case";
 
 type Props = {
   children: ReactNode;
 };
 
-export default function HomeLayout({ children }: Props) {
+export default async function HomeLayout({ children }: Props) {
+  const services = await listServices();
+
   return (
     <div className="flex bg-neutral-100 gap-4">
-      <HomeSidebar />
+      <HomeSidebar services={services} />
       <div className="w-full h-screen flex flex-col gap-2 pr-4">
         <nav className="flex justify-between items-center w-full h-[var(--header-height)]">
           <div className="max-w-[400px] w-full">
