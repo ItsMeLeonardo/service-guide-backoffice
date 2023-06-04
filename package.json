@@ -6,9 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "db:migrate": "prisma migrate dev && prisma generate",
+    "prisma:generate": "prisma generate",
+    "db:create-migration": "prisma migrate dev --create-only"
   },
   "dependencies": {
+    "@prisma/client": "^4.15.0",
     "@types/node": "20.2.5",
     "@types/react": "18.2.7",
     "@types/react-dom": "18.2.4",
@@ -34,6 +38,7 @@
     "eslint-config-prettier": "^8.8.0",
     "eslint-import-resolver-typescript": "^3.5.5",
     "eslint-plugin-prettier": "^4.2.1",
-    "prettier": "^2.8.7"
+    "prettier": "^2.8.7",
+    "prisma": "^4.15.0"
   }
 }
