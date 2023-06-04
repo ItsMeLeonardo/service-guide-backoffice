@@ -22,7 +22,7 @@ export default async function Home() {
               key={guide.id}
               id={guide.id}
               services={guide.service_guide.map(({ service }) => service.name)}
-              title="Guia de usuario"
+              title={guide.title}
               description="Lorem ipsum dolor sit amet consectetur adipisicing elit."
             />
           ))}

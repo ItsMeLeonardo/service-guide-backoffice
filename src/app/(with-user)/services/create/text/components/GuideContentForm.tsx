@@ -8,6 +8,7 @@ export default function GuideContentForm() {
   const [editorValue, setEditorValue] = useState([]);
 
   const onChange = (data: any) => {
+    console.log({ data });
     setEditorValue(data);
   };
   const uploadMedia = async (file: File) => {

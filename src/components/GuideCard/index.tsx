@@ -11,14 +11,16 @@ export default function GuideCard(props: Props) {
   const { services, description, id, title } = props;
   return (
     <aside className="p-4 rounded-lg relative bg-white w-full h-full flex flex-col gap-8">
-      {services.map((service) => (
-        <span
-          key={service}
-          className="py-1 px-3 text-[.65rem] text-violet-500 uppercase ring-1 self-start ring-violet-500 rounded-full"
-        >
-          {service}
-        </span>
-      ))}
+      <div className="flex gap-2 flex-wrap">
+        {services.map((service) => (
+          <span
+            key={service}
+            className="py-1 px-3 text-[.65rem] text-violet-500 uppercase ring-1 self-start ring-violet-500 rounded-full"
+          >
+            {service}
+          </span>
+        ))}
+      </div>
 
       <div className="flex flex-col gap-2 items-start">
         <Link href={`guide/${id}`}>
