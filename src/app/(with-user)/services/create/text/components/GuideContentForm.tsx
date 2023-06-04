@@ -1,15 +1,25 @@
 "use client";
-import { useState } from "react";
+import { GuideContent } from "@/domain/guide/client";
+import { useEffect, useState } from "react";
+import { useFormContext } from "react-hook-form";
 import { YoptaEditor } from "yopta-editor-copy";
 
 import "yopta-editor-copy/dist/index.css";
 
-export default function GuideContentForm() {
-  const [editorValue, setEditorValue] = useState([]);
+import type { FormTextGuide } from "../page";
 
-  const onChange = (data: any) => {
-    console.log({ data });
+export default function GuideContentForm() {
+  const [editorValue, setEditorValue] = useState<GuideContent[]>([]);
+
+  const { register, setValue } = useFormContext<FormTextGuide>();
+
+  useEffect(() => {
+    register("content");
+  }, [register]);
+
+  const onChange = (data: GuideContent[]) => {
     setEditorValue(data);
+    setValue("content", data);
   };
   const uploadMedia = async (file: File) => {
     const url =

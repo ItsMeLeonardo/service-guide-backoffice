@@ -1,47 +1,58 @@
 "use client";
 import FileItem from "@/components/FileItem";
 import CheckboxButton from "@/components/Form/CheckboxButton";
-import { TextInput } from "flowbite-react";
-
-const services = [
-  {
-    name: "Transporte de carga",
-  },
-  {
-    name: "Mensajería",
-  },
-  {
-    name: "Documentos valorados",
-  },
-  {
-    name: "Servicios especiales",
-  },
-  {
-    name: "Servicio Inhouse",
-  },
-  {
-    name: "Servicio aéreo",
-  },
-];
+import { Spinner, TextInput } from "flowbite-react";
+import { useFormContext } from "react-hook-form";
+import { FormTextGuide } from "../page";
+import { useEffect, useState } from "react";
+import { useServices } from "@/hooks/service/useService";
 
 export default function GuideDataForm() {
+  const { register, setValue, getValues } = useFormContext<FormTextGuide>();
+
+  const { services, isLoading } = useServices();
+
+  const [files, setFiles] = useState([]);
+
+  useEffect(() => {
+    register("services");
+  }, [register]);
+
+  const handleServiceChange = (serviceId: number) => {
+    const services = getValues("services");
+    const exist = services.find((s) => s === serviceId);
+    const newServices = exist
+      ? services.filter((s) => s !== serviceId)
+      : [...services, serviceId];
+
+    setValue("services", newServices);
+  };
+
   return (
-    <form className="mt-4 w-full flex flex-col gap-4">
+    <div className="mt-4 w-full flex flex-col gap-4">
       <label className="flex flex-col gap-1">
         <span className="text-xs font-bold">Titulo</span>
-        <TextInput />
+        <TextInput
+          {...register("title", {
+            required: "Este campo es requerido",
+          })}
+        />
       </label>
 
       <div className="flex flex-col">
         <span className="text-xs font-bold">Servicios</span>
-        <div className="flex gap-2 my-2 w-full overflow-auto p-1">
-          {services.map((service) => (
-            <CheckboxButton
-              className="whitespace-nowrap"
-              label={service.name}
-              key={service.name}
-            />
-          ))}
+        <div className="overflow-auto w-full">
+          <div className="flex gap-2 my-2 w-max justify-center items-center p-1">
+            {isLoading && <Spinner color="purple" size="xl" />}
+            {services.map((service) => (
+              <CheckboxButton
+                className="whitespace-nowrap"
+                label={service.name}
+                key={service.id}
+                onChange={() => handleServiceChange(service.id)}
+              />
+            ))}
+          </div>
         </div>
       </div>
 
@@ -60,13 +71,16 @@ export default function GuideDataForm() {
             <input type="file" hidden />
           </label>
 
+          {files.map((file, index) => (
+            <FileItem key={index} />
+          ))}
+
+          {/*           <FileItem />
           <FileItem />
           <FileItem />
-          <FileItem />
-          <FileItem />
-          <FileItem />
+          <FileItem /> */}
         </div>
       </div>
-    </form>
+    </div>
   );
 }

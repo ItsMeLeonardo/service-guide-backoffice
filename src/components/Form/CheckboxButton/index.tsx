@@ -6,14 +6,18 @@ type Props = {
   className?: string;
   checked?: boolean;
   label: string;
+  onChange?: (checked: boolean) => void;
 };
 
 export default function CheckboxButton(props: Props) {
-  const { checked: checkedProps = false, className, label } = props;
+  const { checked: checkedProps = false, className, label, onChange } = props;
 
   const [checked, setChecked] = useState(checkedProps);
 
-  const toggleChecked = () => setChecked(!checked);
+  const toggleChecked = () => {
+    onChange && onChange(!checked);
+    setChecked(!checked);
+  };
 
   const classes = buildClass(
     "px-6 py-2 rounded-full cursor-pointer hover:bg-orange-100 transition-all duration-200 ease-in-out",

@@ -5,6 +5,7 @@ import SearchIcon from "@/icons/SearchIcon";
 import Avatar from "@/components/Avatar";
 import BellIcon from "@/icons/BellIcon";
 import { listServices } from "@/application/service/server/use-case";
+import BackButton from "@/components/BackButton";
 
 type Props = {
   children: ReactNode;
@@ -18,13 +19,16 @@ export default async function HomeLayout({ children }: Props) {
       <HomeSidebar services={services} />
       <div className="w-full h-screen flex flex-col gap-2 pr-4">
         <nav className="flex justify-between items-center w-full h-[var(--header-height)]">
-          <div className="max-w-[400px] w-full">
-            <TextInput
-              className=""
-              icon={<SearchIcon />}
-              placeholder="Buscar una guía"
-              labelClass="bg-white shadow-pale rounded-full"
-            />
+          <div className="flex items-center gap-2">
+            <BackButton />
+            <div className="max-w-[400px] w-full">
+              <TextInput
+                className=""
+                icon={<SearchIcon />}
+                placeholder="Buscar una guía"
+                labelClass="bg-white shadow-pale rounded-full"
+              />
+            </div>
           </div>
 
           <div className="flex gap-4 items-center">
