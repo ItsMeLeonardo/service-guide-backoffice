@@ -11,6 +11,8 @@ type Props = {
   children: ReactNode;
 };
 
+export const revalidate = 0;
+
 export default async function HomeLayout({ children }: Props) {
   const services = await listServices();
 

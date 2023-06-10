@@ -1,6 +1,8 @@
 import { getGuideList } from "@/application/guide/server/use-case";
 import GuideCard from "@/components/GuideCard";
 
+export const revalidate = 0;
+
 export default async function Home() {
   const lastGuides = await getGuideList();
   return (

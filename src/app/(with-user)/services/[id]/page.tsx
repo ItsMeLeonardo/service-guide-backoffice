@@ -8,6 +8,8 @@ type Props = {
   };
 };
 
+export const revalidate = 0;
+
 export default async function Page({ params }: Props) {
   const guides = await getGuidesServiceId(Number(params.id));
 

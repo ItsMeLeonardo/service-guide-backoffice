@@ -10,6 +10,8 @@ type Props = {
   };
 };
 
+export const revalidate = 0;
+
 export default async function Guide({ params }: Props) {
   const guide = await getGuideById(Number(params.id));
 
