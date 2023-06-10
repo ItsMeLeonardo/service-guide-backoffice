@@ -34,3 +34,10 @@ VALUES (
   'Servicio aéreo',
   'Servicio aéreo'
 );
+
+
+-- set admin user
+
+insert into backoffice.user (first_name, last_name, email, username, password, role_id, job_title_id, created_at,
+                             updated_at)
+values ('admin', 'admin', 'admin@gmail.com', 'admin', 'admin123', 1, 1, now(), now());
