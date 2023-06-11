@@ -22,7 +22,12 @@ export default function GuideDataForm() {
 
   useEffect(() => {
     register("services");
+    register("attachments");
   }, [register]);
+
+  useEffect(() => {
+    setValue("attachments", files);
+  }, [files, setValue]);
 
   const handleDeleteFile = (file: File) => {
     setFiles((prev) => {
@@ -84,7 +89,9 @@ export default function GuideDataForm() {
 
           {files.map((file, index) => (
             <FileItem
-              file={file}
+              name={file.name}
+              size={file.size}
+              type={file.type}
               key={index}
               onDelete={() => {
                 handleDeleteFile(file);

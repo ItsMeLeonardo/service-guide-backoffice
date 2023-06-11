@@ -1,3 +1,4 @@
+import ArrowDown from "@/icons/ArrowDown";
 import AudioIcon from "@/icons/AudioIcon";
 import CancelIcon from "@/icons/CancelIcon";
 import DocumentIcon from "@/icons/DocumentIcon";
@@ -8,10 +9,13 @@ import VideoIcon from "@/icons/VideoIcon";
 import React from "react";
 
 type Props = {
-  file: File;
+  name: string;
+  size: number;
+  type: string;
   onDelete?: () => void;
   onRefresh?: () => void;
   onCancel?: () => void;
+  downloadUrl?: string;
 };
 
 function formatBytes(bytes: number, decimals = 2) {
@@ -36,11 +40,12 @@ function getFileIcon(fileType: string) {
 }
 
 export default function FileItem(props: Props) {
-  const { file, onCancel, onDelete, onRefresh } = props;
+  const { onCancel, onDelete, onRefresh, downloadUrl, name, size, type } =
+    props;
 
-  const size = formatBytes(file.size);
+  const sizeFormatted = formatBytes(size);
 
-  const fileIcon = getFileIcon(file.type);
+  const fileIcon = getFileIcon(type);
 
   return (
     <div className="flex gap-3 items-center rounded-lg bg-white p-2 px-2.5">
@@ -50,9 +55,9 @@ export default function FileItem(props: Props) {
 
       <div className="flex-grow text-xs flex flex-col overflow-hidden w-full">
         <span className="font-bold w-full text-ellipsis whitespace-nowrap overflow-hidden">
-          {file.name}
+          {name}
         </span>
-        <span className="text-gray-400">{size}kb</span>
+        <span className="text-gray-400">{sizeFormatted}</span>
       </div>
 
       <div className="flex gap-1">
@@ -79,6 +84,18 @@ export default function FileItem(props: Props) {
           >
             <TrashIcon />
           </button>
+        )}
+
+        {downloadUrl && (
+          <a
+            className="flex p-2 rounded-lg hover:bg-green-50 text-green-500"
+            href={downloadUrl}
+            download
+            target="_blank"
+            rel="noreferrer"
+          >
+            <ArrowDown />
+          </a>
         )}
       </div>
     </div>

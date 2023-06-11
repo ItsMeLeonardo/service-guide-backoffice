@@ -13,6 +13,7 @@ export type FormTextGuide = {
   title: string;
   services: number[];
   content: GuideContent[];
+  attachments: File[];
 };
 
 export default function Text() {
@@ -32,6 +33,7 @@ export default function Text() {
       content: data.content,
       services: data.services,
       title: data.title,
+      attachment: data.attachments,
     })
       .then(() => {
         router.push("/home");

@@ -6,4 +6,5 @@ export type GuideRequest = {
   title: string;
   content: GuideContent[];
   services: number[];
+  attachment: File[];
 };

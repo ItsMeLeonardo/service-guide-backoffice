@@ -29,11 +29,6 @@ export default function Video() {
               setVideoFile(files[0]);
             }}
           />
-          <video
-            className="w-full aspect-video rounded-2xl border border-spacing-4 border-dashed border-gray-200 relative flex items-center justify-center cursor-pointer object-cover"
-            controls
-            src="https://res.cloudinary.com/leonardoblog/video/upload/v1686429921/64383c096b6dc_anfk95.mp4"
-          ></video>
         </div>
         <div className="w-full flex items-center justify-center relative">
           <span className="text-center p-2 text-sm font-bold bg-white relative z-10">

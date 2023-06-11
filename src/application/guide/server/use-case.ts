@@ -1,3 +1,4 @@
+import { Attachment } from "@/domain/guide/server";
 import db from "@/persistence/server";
 
 export async function getGuideList() {
@@ -81,6 +82,15 @@ export async function getGuideById(id: number) {
           },
         },
       },
+      attachment: {
+        select: {
+          name: true,
+          path: true,
+          size: true,
+          type: true,
+          id: true,
+        },
+      },
     },
   });
   return guide;
@@ -90,7 +100,8 @@ export async function createTextGuide(
   title: string,
   content: string,
   user_id: number,
-  services: number[]
+  services: number[],
+  attachment: Attachment[]
 ) {
   const guide = await db.guide.create({
     data: {
@@ -103,6 +114,16 @@ export async function createTextGuide(
             service_id: service,
             created_at: new Date(),
             updated_at: new Date(),
+          })),
+        },
+      },
+      attachment: {
+        createMany: {
+          data: attachment.map((file) => ({
+            created_at: new Date(),
+            updated_at: new Date(),
+            description: "",
+            ...file,
           })),
         },
       },
