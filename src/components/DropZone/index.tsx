@@ -2,9 +2,11 @@ import { ChangeEvent, DragEvent, useRef } from "react";
 
 type DropZoneProps = {
   onDrop?: (files: File[]) => void;
+  accept?: string;
+  multiple?: boolean;
 };
 
-export default function DropZone({ onDrop }: DropZoneProps) {
+export default function DropZone({ onDrop, accept, multiple }: DropZoneProps) {
   const dropZoneRef = useRef<HTMLLabelElement>(null);
 
   const handleDrop = (event: DragEvent<HTMLLabelElement>) => {
@@ -54,7 +56,13 @@ export default function DropZone({ onDrop }: DropZoneProps) {
         <strong className="text-xs">Arrastra y suelta un archivo</strong>
         <span className="text-xs"> o haz click para seleccionar uno</span>
       </div>
-      <input type="file" hidden multiple onChange={handleChange} />
+      <input
+        type="file"
+        hidden
+        multiple={multiple}
+        onChange={handleChange}
+        accept={accept}
+      />
     </label>
   );
 }

@@ -1,32 +1,40 @@
 "use client";
+import DropZone from "@/components/DropZone";
 import ChatBubbleQuestionIcon from "@/icons/ChatBubbleQuestionIcon";
 import UploadWindow from "@/icons/UploadWindow";
 import { TextInput } from "flowbite-react";
+import { useState } from "react";
 
 export default function Video() {
+  const [videoFile, setVideoFile] = useState<File | null>(null);
+
   return (
     <div className="w-full h-full flex  justify-center">
-      <div className="bg-white w-1/2 p-4 rounded-2xl">
-        <form className="">
+      <div className="bg-white w-1/2 p-4 rounded-2xl overflow-auto">
+        <div className="">
           <header className="mb-4">
             <h2 className="text-base font-bold">Subir video</h2>
             <h3 className="text-xs text-gray-400">
               Sube un video de tu guia para los empleados
             </h3>
           </header>
-
-          <label className="w-full aspect-video rounded-2xl border border-spacing-4 border-dashed border-gray-200 relative flex items-center justify-center cursor-pointer">
-            <div className="flex flex-col gap-2 items-center">
-              <picture className="w-20 aspect-square rounded-full overflow-hidden flex bg-orange-50">
-                <img src="" alt="" />
-              </picture>
-
-              <strong className="text-xs">Arrastra y suelta un video</strong>
-              <span className="text-xs"> o haz click para seleccionar uno</span>
-            </div>
-            <input type="file" hidden />
+          <label className="flex flex-col gap-1 mb-2">
+            <span className="text-xs font-bold">Titulo</span>
+            <TextInput name="title" />
           </label>
-        </form>
+
+          <DropZone
+            accept="video/*"
+            onDrop={(files) => {
+              setVideoFile(files[0]);
+            }}
+          />
+          <video
+            className="w-full aspect-video rounded-2xl border border-spacing-4 border-dashed border-gray-200 relative flex items-center justify-center cursor-pointer object-cover"
+            controls
+            src="https://res.cloudinary.com/leonardoblog/video/upload/v1686429921/64383c096b6dc_anfk95.mp4"
+          ></video>
+        </div>
         <div className="w-full flex items-center justify-center relative">
           <span className="text-center p-2 text-sm font-bold bg-white relative z-10">
             OR

@@ -9,7 +9,12 @@ import { useServices } from "@/hooks/service/useService";
 import DropZone from "@/components/DropZone";
 
 export default function GuideDataForm() {
-  const { register, setValue, getValues } = useFormContext<FormTextGuide>();
+  const {
+    register,
+    setValue,
+    getValues,
+    formState: { errors },
+  } = useFormContext<FormTextGuide>();
 
   const { services, isLoading } = useServices();
 
@@ -45,6 +50,8 @@ export default function GuideDataForm() {
           {...register("title", {
             required: "Este campo es requerido",
           })}
+          helperText={errors.title?.message}
+          color={errors.title ? "danger" : "primary"}
         />
       </label>
 
@@ -72,6 +79,7 @@ export default function GuideDataForm() {
             onDrop={(files) => {
               setFiles((prev) => [...prev, ...files]);
             }}
+            multiple
           />
 
           {files.map((file, index) => (
