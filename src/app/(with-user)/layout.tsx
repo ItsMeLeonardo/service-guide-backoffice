@@ -2,10 +2,10 @@ import { ReactNode } from "react";
 import TextInput from "@/components/Form/TextInput";
 import HomeSidebar from "@/components/HomeSidebar";
 import SearchIcon from "@/icons/SearchIcon";
-import Avatar from "@/components/Avatar";
 import BellIcon from "@/icons/BellIcon";
 import { listServices } from "@/application/service/server/use-case";
 import BackButton from "@/components/BackButton";
+import ProfileHeaderButton from "@/components/ProfileHeaderButton";
 
 type Props = {
   children: ReactNode;
@@ -38,7 +38,7 @@ export default async function HomeLayout({ children }: Props) {
               <BellIcon height={20} width={20} />
             </button>
 
-            <Avatar size={40} name="John Doe" />
+            <ProfileHeaderButton />
           </div>
         </nav>
 

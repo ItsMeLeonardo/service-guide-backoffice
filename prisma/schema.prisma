@@ -14,8 +14,8 @@ model attachment {
   path        String   @db.VarChar(255)
   size        Int
   type        String   @db.VarChar(255)
-  created_at  DateTime @db.Timestamp(6)
-  updated_at  DateTime @db.Timestamp(6)
+  created_at  DateTime @default(now()) @db.Timestamp(6)
+  updated_at  DateTime @default(now()) @db.Timestamp(6)
   guide_id    Int
   guide       guide    @relation(fields: [guide_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_attachment_guide")
 }
@@ -49,8 +49,8 @@ model service_guide {
   id         Int      @id @default(autoincrement())
   service_id Int
   guide_id   Int
-  created_at DateTime @db.Timestamp(6)
-  updated_at DateTime @db.Timestamp(6)
+  created_at DateTime @default(now()) @db.Timestamp(6)
+  updated_at DateTime @default(now()) @db.Timestamp(6)
   guide      guide    @relation(fields: [guide_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_service_guide_guide")
   service    service  @relation(fields: [service_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_service_guide_service")
 }
@@ -59,13 +59,13 @@ model user {
   id           Int       @id @default(autoincrement())
   first_name   String    @db.VarChar(255)
   last_name    String    @db.VarChar(255)
-  email        String    @db.VarChar(255)
+  email        String    @unique(map: "email_unique") @db.VarChar(255)
   username     String    @db.VarChar(255)
   password     String    @db.VarChar(255)
   role_id      Int
   job_title_id Int
-  created_at   DateTime  @db.Timestamp(6)
-  updated_at   DateTime  @db.Timestamp(6)
+  created_at   DateTime  @default(now()) @db.Timestamp(6)
+  updated_at   DateTime  @default(now()) @db.Timestamp(6)
   guide        guide[]
   job_title    job_title @relation(fields: [job_title_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_user_job_title")
   user_role    user_role @relation(fields: [role_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_user_role")

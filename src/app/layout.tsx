@@ -1,3 +1,7 @@
+import { headers } from "next/headers";
+import AuthProvider from "@/components/AuthProvider";
+
+import type { Session } from "next-auth";
 import type { ReactNode } from "react";
 
 import "./globals.css";
@@ -20,12 +24,32 @@ export const metadata = {
   description: "Intranet de la empresa JCU",
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+async function getSession(cookie: string): Promise<Session> {
+  const response = await fetch(`${process.env.NEXTAUTH_URL}/api/auth/session`, {
+    headers: {
+      cookie,
+    },
+  });
+
+  const session = await response.json();
+
+  return Object.keys(session).length > 0 ? session : null;
+}
+
+export default async function RootLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
   const fontsClasses = `${sanSerif.variable} ${serif.variable}`;
+
+  const session = await getSession(headers().get("cookie") ?? "");
 
   return (
     <html lang="es">
-      <body className={fontsClasses}>{children}</body>
+      <body className={fontsClasses}>
+        <AuthProvider session={session}>{children}</AuthProvider>
+      </body>
     </html>
   );
 }
