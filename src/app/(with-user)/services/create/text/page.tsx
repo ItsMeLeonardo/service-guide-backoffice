@@ -52,13 +52,13 @@ export default function Text() {
             <Spinner size="xl" color="purple" />
           </div>
         )}
-        <section className="overflow-auto">
-          <header className="text-center mb-2">
+        <section className="overflow-auto flex flex-col gap-2">
+          <header className="text-center">
             <h2 className="font-serif text-xl font-bold">
               Contenido de la guía
             </h2>
           </header>
-          <aside className="min-h-full w-full bg-white rounded-2xl">
+          <aside className="h-auto min-h-[90%] flex-grow w-full bg-white rounded-2xl">
             <GuideContentForm />
           </aside>
         </section>
