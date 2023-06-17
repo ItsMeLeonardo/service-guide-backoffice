@@ -7,9 +7,15 @@ import { YoptaEditor } from "yopta-editor-copy";
 import "yopta-editor-copy/dist/index.css";
 
 import type { FormTextGuide } from "../page";
+import { uploadMediaService } from "@/shared/client/file-storage/upload-media";
+import AiIcon from "@/icons/AiIcon";
+import AiOptions from "./AiOptions";
+import { useToggle } from "@/hooks/shared/useToggle";
 
 export default function GuideContentForm() {
   const [editorValue, setEditorValue] = useState<GuideContent[]>([]);
+
+  const [iaOptionsOpen, toggleIaOptions] = useToggle();
 
   const { register, setValue } = useFormContext<FormTextGuide>();
 
@@ -23,16 +29,21 @@ export default function GuideContentForm() {
   };
 
   const uploadMedia = async (file: File) => {
-    const url =
-      "https://images.unsplash.com/photo-1684018864429-42c0966d71e0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=596&q=80";
-
+    const [result] = await uploadMediaService([file]);
     return {
-      url,
+      url: result.url,
     };
   };
 
   return (
-    <div>
+    <div className="relative">
+      <button
+        className="p-2 bg-white text-orange-500 rounded-lg absolute right-3 top-3 z-10 hover:bg-orange-50 cursor-pointer duration-100"
+        onClick={toggleIaOptions}
+      >
+        <AiIcon />
+      </button>
+      {iaOptionsOpen && <AiOptions onClose={toggleIaOptions} />}
       <YoptaEditor
         value={editorValue}
         onChange={onChange}
