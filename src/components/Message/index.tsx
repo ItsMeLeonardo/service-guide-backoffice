@@ -18,8 +18,8 @@ export default function Message({ self, avatar, message }: Props) {
           alt=""
         />
       </picture>
-      <div className="flex items-center">
-        <p className="text-xs font-light">{message}</p>
+      <div className="flex items-center h-full">
+        <p className="text-xs font-light whitespace-pre-wrap">{message}</p>
       </div>
     </div>
   );
