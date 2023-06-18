@@ -14,6 +14,7 @@ import { useToggle } from "@/hooks/shared/useToggle";
 
 export default function GuideContentForm() {
   const [editorValue, setEditorValue] = useState<GuideContent[]>([]);
+  const [showEditor, setShowEditor] = useState(true);
 
   const [iaOptionsOpen, toggleIaOptions] = useToggle();
 
@@ -34,28 +35,44 @@ export default function GuideContentForm() {
       url: result.url,
     };
   };
+  const handleGenerate = (content: GuideContent) => {
+    setEditorValue((prev) => {
+      const newContent = [...prev, content];
+      setValue("content", newContent);
+      return newContent;
+    });
+
+    setShowEditor(false);
+    setTimeout(() => {
+      setShowEditor(true);
+    }, 100);
+  };
 
   return (
-    <div className="relative">
+    <div className="relative h-full overflow-auto">
       <button
         className="p-2 bg-white text-orange-500 rounded-lg absolute right-3 top-3 z-10 hover:bg-orange-50 cursor-pointer duration-100"
         onClick={toggleIaOptions}
       >
         <AiIcon />
       </button>
-      {iaOptionsOpen && <AiOptions onClose={toggleIaOptions} />}
-      <YoptaEditor
-        value={editorValue}
-        onChange={onChange}
-        media={{
-          imageProps: {
-            onChange: uploadMedia,
-          },
-          videoProps: {
-            onChange: uploadMedia,
-          },
-        }}
-      />
+      {iaOptionsOpen && (
+        <AiOptions onClose={toggleIaOptions} onGenerate={handleGenerate} />
+      )}
+      {showEditor && (
+        <YoptaEditor
+          value={editorValue}
+          onChange={onChange}
+          media={{
+            imageProps: {
+              onChange: uploadMedia,
+            },
+            videoProps: {
+              onChange: uploadMedia,
+            },
+          }}
+        />
+      )}
     </div>
   );
 }

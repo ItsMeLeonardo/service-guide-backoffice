@@ -29,6 +29,10 @@ async function sendMessageService(
   return data;
 }
 
+type Options = {
+  onResponse?: (message: Message) => void;
+}
+
 export function useAiChat() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(false);

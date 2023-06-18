@@ -57,8 +57,18 @@ export default function Login() {
         <header className="text-lg font-bold text-center">
           Iniciar sesión
         </header>
-        <TextInput name="email" placeholder="example@mail.com" type="email" />
-        <TextInput name="password" placeholder="Contraseña" type="password" />
+        <TextInput
+          defaultValue="admin@gmail.com"
+          name="email"
+          placeholder="example@mail.com"
+          type="email"
+        />
+        <TextInput
+          defaultValue="admin123"
+          name="password"
+          placeholder="Contraseña"
+          type="password"
+        />
         <button
           type="submit"
           className="py-2 w-full bg-orange-100 ring-1 ring-orange-400 text-orange-500 text-center rounded-lg"

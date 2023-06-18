@@ -52,7 +52,7 @@ export default function Text() {
             <Spinner size="xl" color="purple" />
           </div>
         )}
-        <section className="overflow-auto flex flex-col gap-2">
+        <section className="overflow-hidden flex flex-col gap-2">
           <header className="text-center">
             <h2 className="font-serif text-xl font-bold">
               Contenido de la guía
