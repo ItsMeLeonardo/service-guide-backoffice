@@ -1,6 +1,8 @@
+import Avatar from "../Avatar";
+
 type Props = {
   message: string;
-  avatar: string;
+  avatar?: string;
   self?: boolean;
 };
 
@@ -11,13 +13,17 @@ export default function Message({ self, avatar, message }: Props) {
 
   return (
     <div className={messageClass}>
-      <picture className="min-w-[2rem] min-h-[2rem] w-8 h-8">
-        <img
-          className="w-full h-full rounded-full object-cover"
-          src={avatar}
-          alt=""
-        />
-      </picture>
+      {avatar ? (
+        <picture className="min-w-[2rem] min-h-[2rem] w-8 h-8">
+          <img
+            className="w-full h-full rounded-full object-cover"
+            src={avatar}
+            alt=""
+          />
+        </picture>
+      ) : (
+        <Avatar name="Admin" size={32} />
+      )}
       <div className="flex items-center h-full">
         <p className="text-xs font-light whitespace-pre-wrap">{message}</p>
       </div>

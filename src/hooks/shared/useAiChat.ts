@@ -10,7 +10,7 @@ type ResponseMessage = {
 } & RequestMessage;
 
 type Message = {
-  avatar: string;
+  avatar?: string;
 } & ResponseMessage;
 
 async function sendMessageService(
@@ -31,7 +31,7 @@ async function sendMessageService(
 
 type Options = {
   onResponse?: (message: Message) => void;
-}
+};
 
 export function useAiChat() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -71,8 +71,6 @@ export function useAiChat() {
       id: String(Date.now()),
       role: "user",
       content: message,
-      avatar:
-        "https://cdn.midjourney.com/e40efd85-c1da-4791-838f-fa6aa97e39ab/grid_0.png",
     };
 
     setMessages((prevMessages) => [...prevMessages, newMessage]);
