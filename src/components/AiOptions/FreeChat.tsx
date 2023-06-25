@@ -10,10 +10,11 @@ import { useAiChat } from "@/hooks/shared/useAiChat";
 type Props = {
   onClose: () => void;
   firstMessage?: string;
+  messageContext?: string;
 };
 
 export default function FreeChat(props: Props) {
-  const { onClose, firstMessage } = props;
+  const { onClose, firstMessage, messageContext } = props;
 
   const { messages, sendMessage, loading } = useAiChat();
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
@@ -24,7 +25,9 @@ export default function FreeChat(props: Props) {
 
     const message = textArea.value.trim();
     if (!message) return;
-    sendMessage(message);
+    sendMessage(
+      `${messageContext && `{{contexto: ${messageContext}.}}`} ${message}`
+    );
     textArea.value = "";
     textArea.style.height = "auto";
     textArea.style.height = textArea.scrollHeight + "px";

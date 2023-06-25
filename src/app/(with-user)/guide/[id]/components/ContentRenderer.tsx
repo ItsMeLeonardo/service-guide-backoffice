@@ -7,9 +7,10 @@ import { YoptaRenderer } from "yopta-editor-copy";
 
 type Props = {
   data: any;
+  title: string;
 };
 
-export default function ContentRenderer({ data }: Props) {
+export default function ContentRenderer({ data, title }: Props) {
   const [showChat, setShowChat] = useState(false);
 
   return (
@@ -17,6 +18,7 @@ export default function ContentRenderer({ data }: Props) {
       {showChat && (
         <FreeChat
           firstMessage="Puedo ayudarte resolviendo dudas sobre el contenido de esta guia."
+          messageContext={`las respuestans deben tener sentido con la guia: ${title}`}
           onClose={() => {
             setShowChat(false);
           }}

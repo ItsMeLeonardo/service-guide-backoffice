@@ -24,7 +24,9 @@ export default async function Guide({ params }: Props) {
   return (
     <div className="w-full h-full pr-4 grid grid-cols-[1fr_35%] gap-4">
       <section className="overflow-auto min-h-full p-2 lg:p-4 w-full bg-white relative rounded-2xl">
-        {guide.content && <ContentRenderer data={guide.content} />}
+        {guide.content && (
+          <ContentRenderer title={guide.title} data={guide.content} />
+        )}
         {guide.source_video && (
           <div className="w-full aspect-video">
             <video
