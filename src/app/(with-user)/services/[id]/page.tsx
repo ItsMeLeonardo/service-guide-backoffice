@@ -18,7 +18,7 @@ export default async function Page({ params }: Props) {
       <header className="flex justify-between items-center py-1">
         <h2 className="font-serif text-4xl font-bold">Guias de usuario</h2>
         <Link
-          href="/services/create"
+          href="/services/create/text"
           className="px-4 py-1 rounded-full ring-1 ring-orange-500"
         >
           <span className="text-xs text-orange-500">Crear guia</span>
@@ -31,7 +31,7 @@ export default async function Page({ params }: Props) {
             No hay guias de usuario
           </h3>
           <Link
-            href="/services/create"
+            href="/services/create/text"
             className="px-8 py-2 rounded-full ring-1 ring-orange-500"
           >
             <span className="text-sm  text-orange-500">Crear guia</span>

@@ -6,7 +6,7 @@ export const revalidate = 0;
 export default async function Home() {
   const lastGuides = await getGuideList();
   return (
-    <div className="h-full ">
+    <div className="h-full overflow-y-auto overflow-x-hidden">
       <h2 className="font-serif text-4xl font-bold">Guias de usuario</h2>
 
       {lastGuides.length === 0 && (

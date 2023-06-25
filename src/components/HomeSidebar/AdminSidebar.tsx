@@ -1,6 +1,6 @@
 "use client";
 import { Service } from "@/domain/services/client";
-import BellIcon from "@/icons/BellIcon";
+// import BellIcon from "@/icons/BellIcon";
 import { Sidebar } from "flowbite-react";
 import Link from "next/link";
 
@@ -11,7 +11,7 @@ type Props = {
 export default function AdminSidebar({ services }: Props) {
   return (
     <>
-      <Sidebar.Item href="services/create/" as={Link}>
+      <Sidebar.Item href="services/create/text" as={Link}>
         Crear Guia
       </Sidebar.Item>
       <Sidebar.Collapse label="Servicios">
@@ -28,9 +28,9 @@ export default function AdminSidebar({ services }: Props) {
       <Sidebar.Item href="employee" as={Link}>
         Empleados
       </Sidebar.Item>
-      <Sidebar.Item icon={() => <BellIcon height={20} width={20} />} href="#">
+      {/*    <Sidebar.Item icon={() => <BellIcon height={20} width={20} />} href="#">
         Notificaciones
-      </Sidebar.Item>
+      </Sidebar.Item> */}
     </>
   );
 }

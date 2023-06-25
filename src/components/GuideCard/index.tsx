@@ -8,9 +8,12 @@ type Props = {
 };
 
 export default function GuideCard(props: Props) {
-  const { services, description, id, title } = props;
+  const { services, id, title, description } = props;
   return (
-    <aside className="p-4 rounded-lg relative bg-white w-full h-full flex flex-col gap-8">
+    <Link
+      href={`guide/${id}`}
+      className="p-4 rounded-lg relative bg-white w-full h-full flex flex-col gap-8 hover:scale-105 transition-all"
+    >
       <div className="flex gap-2 flex-wrap">
         {services.map((service) => (
           <span
@@ -23,11 +26,9 @@ export default function GuideCard(props: Props) {
       </div>
 
       <div className="flex flex-col gap-2 items-start">
-        <Link href={`guide/${id}`}>
-          <h3 className="text-2xl font-serif">{title}</h3>
-        </Link>
+        <h3 className="text-2xl font-serif">{title}</h3>
         <p className="text-xs text-gray-400 text-left">{description}</p>
       </div>
-    </aside>
+    </Link>
   );
 }
