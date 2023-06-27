@@ -7,6 +7,8 @@ import UserDetail from "./Components/UserDetail";
 import { EMPLOYEES } from "./data";
 import { useState } from "react";
 import { Employee } from "@/domain/employee/client";
+import AddIcon from "@/icons/AddIcon";
+import { useLocalStorage } from "@/hooks/shared/useLocalStorage";
 
 const services = [
   {
@@ -38,8 +40,13 @@ const services = [
 export default function Employee() {
   const [filterWord, setFilterWord] = useState("");
 
-  const [employeeSelected, setEmployeeSelected] = useState<Employee>(
-    EMPLOYEES[0]
+  const [employees, setEmployees] = useLocalStorage<Employee[]>(
+    "EMPLOYEES",
+    EMPLOYEES
+  );
+
+  const [employeeSelected, setEmployeeSelected] = useState<Employee | null>(
+    employees[0]
   );
 
   const [filterSelected, setFilterSelected] = useState<string[]>([]);
@@ -57,13 +64,23 @@ export default function Employee() {
       <div className="flex flex-col h-full overflow-hidden">
         <div className="w-full mb-4 flex flex-col gap-4">
           <h2 className="font-serif text-2xl font-bold">Guias de usuario</h2>
-          <TextInput
-            className=""
-            icon={<SearchIcon />}
-            placeholder="Buscar Empleado"
-            labelClass="bg-white rounded-xl"
-            onChange={(e) => setFilterWord(e.target.value)}
-          />
+          <div className="flex gap-2 items-center w-full">
+            <TextInput
+              className=""
+              icon={<SearchIcon />}
+              placeholder="Buscar Empleado"
+              labelClass="bg-white rounded-xl w-full"
+              onChange={(e) => setFilterWord(e.target.value)}
+            />
+            <button
+              className="p-2 text-lg bg-indigo-500 rounded-xl text-white"
+              onClick={() => {
+                setEmployeeSelected(null);
+              }}
+            >
+              <AddIcon />
+            </button>
+          </div>
           <div className="flex gap-2 w-full items-center overflow-auto">
             <span className="text-xs font-bold sticky left-0 bg-neutral-50 p-2">
               Servicios:
@@ -74,7 +91,7 @@ export default function Employee() {
                 onClick={() => handleToggleFilter(service.value)}
                 className={`bg-white rounded-lg py-1 px-4 hover:bg-gray-100 whitespace-nowrap ${
                   filterSelected.includes(service.value) &&
-                  "bg-indigo-500 text-white"
+                  "!bg-indigo-500 text-white"
                 }`}
               >
                 <span className="text-xs">{service.name}</span>
@@ -83,11 +100,12 @@ export default function Employee() {
           </div>
         </div>
         <div className="h-full flex flex-col overflow-auto">
-          {EMPLOYEES.filter((employee) => {
-            return employee.name
-              .toLowerCase()
-              .includes(filterWord.toLowerCase());
-          })
+          {employees
+            .filter((employee) => {
+              return employee.name
+                .toLowerCase()
+                .includes(filterWord.toLowerCase());
+            })
             .filter((employee) => {
               if (filterSelected.length === 0) return true;
               return filterSelected.includes(employee.service);
@@ -108,7 +126,27 @@ export default function Employee() {
       </div>
 
       <aside className="h-full w-full bg-white rounded-lg">
-        <UserDetail employee={employeeSelected} />
+        <UserDetail
+          employee={employeeSelected}
+          onSubmit={(data) => {
+            const existEmployee = employees.find(
+              (employee) => employee.id === data.id
+            );
+            if (existEmployee) {
+              setEmployees(
+                employees.map((employee) => {
+                  if (employee.id === data.id) {
+                    return data;
+                  }
+                  return employee;
+                })
+              );
+              return;
+            }
+
+            setEmployees([data, ...employees]);
+          }}
+        />
       </aside>
     </section>
   );

@@ -3,13 +3,13 @@
 import Avvvatars from "avvvatars-react";
 
 type AvatarProps = {
-  name: string;
+  name?: string;
   size?: number;
   src?: string;
 };
 
 export default function Avatar(props: AvatarProps) {
-  const { name, size, src } = props;
+  const { name = "", size, src } = props;
 
   if (src) {
     return (
@@ -25,5 +25,7 @@ export default function Avatar(props: AvatarProps) {
     );
   }
 
-  return <Avvvatars value={name} size={size} />;
+  return (
+    <Avvvatars value={name} size={size} style={name ? "character" : "shape"} />
+  );
 }
