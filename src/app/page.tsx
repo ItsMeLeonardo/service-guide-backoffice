@@ -1,8 +1,9 @@
 "use client";
 import { TextInput } from "flowbite-react";
 import { signIn, useSession } from "next-auth/react";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { EMPLOYEES } from "./(with-user)/employee/data";
 
 export default function Login() {
   const router = useRouter();
@@ -10,6 +11,16 @@ export default function Login() {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+
+  useEffect(() => {
+    const employeesItem = localStorage.getItem("EMPLOYEES");
+
+    const employees = employeesItem ? JSON.parse(employeesItem ?? "") : [];
+
+    if (employees.length === 0) {
+      localStorage.setItem("EMPLOYEES", JSON.stringify(EMPLOYEES));
+    }
+  }, []);
 
   const handleError = () => {
     setError(true);

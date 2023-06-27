@@ -264,9 +264,11 @@ export default function UserDetail(props: Props) {
                 </span>
               )}
             </div>
-            <Button fullSized type="submit" gradientDuoTone="purpleToBlue">
-              <span className="text-xs">Guardar</span>
-            </Button>
+            {isEditing && (
+              <Button fullSized type="submit" gradientDuoTone="purpleToBlue">
+                <span className="text-xs">Guardar</span>
+              </Button>
+            )}
           </div>
         </div>
       </section>

@@ -4,7 +4,7 @@ import EmployeeItem from "@/components/EmployeeItem";
 import TextInput from "@/components/Form/TextInput";
 import SearchIcon from "@/icons/SearchIcon";
 import UserDetail from "./Components/UserDetail";
-import { EMPLOYEES } from "./data";
+// import { EMPLOYEES } from "./data";
 import { useState } from "react";
 import { Employee } from "@/domain/employee/client";
 import AddIcon from "@/icons/AddIcon";
@@ -40,9 +40,11 @@ const services = [
 export default function Employee() {
   const [filterWord, setFilterWord] = useState("");
 
+  const [showEditor, setShowEditor] = useState(true);
+
   const [employees, setEmployees] = useLocalStorage<Employee[]>(
     "EMPLOYEES",
-    EMPLOYEES
+    []
   );
 
   const [employeeSelected, setEmployeeSelected] = useState<Employee | null>(
@@ -126,12 +128,15 @@ export default function Employee() {
       </div>
 
       <aside className="h-full w-full bg-white rounded-lg">
+        {/* {showEditor && ( */}
+
         <UserDetail
           employee={employeeSelected}
           onSubmit={(data) => {
             const existEmployee = employees.find(
               (employee) => employee.id === data.id
             );
+
             if (existEmployee) {
               setEmployees(
                 employees.map((employee) => {
@@ -141,12 +146,15 @@ export default function Employee() {
                   return employee;
                 })
               );
+              setEmployeeSelected(data);
               return;
             }
 
             setEmployees([data, ...employees]);
+            setEmployeeSelected(data);
           }}
         />
+        {/* )} */}
       </aside>
     </section>
   );
