@@ -42,6 +42,9 @@ export default function HomeSidebar({ services }: Props) {
         </Sidebar.Logo>
         <Sidebar.Items>
           <Sidebar.ItemGroup>
+            <Sidebar.Item href="/dashboard" as={Link}>
+              Dashboard
+            </Sidebar.Item>
             <Sidebar.Item href="/home" as={Link}>
               Home
             </Sidebar.Item>

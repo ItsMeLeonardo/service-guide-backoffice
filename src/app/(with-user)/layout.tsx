@@ -23,14 +23,14 @@ export default async function HomeLayout({ children }: Props) {
         <nav className="flex justify-between items-center w-full h-[var(--header-height)]">
           <div className="flex items-center gap-2">
             <BackButton />
-            <div className="max-w-[400px] w-full">
+            {/* <div className="max-w-[400px] w-full">
               <TextInput
                 className=""
                 icon={<SearchIcon />}
                 placeholder="Buscar una guía"
                 labelClass="bg-white shadow-pale rounded-full"
               />
-            </div>
+            </div> */}
           </div>
 
           <div className="flex gap-4 items-center">

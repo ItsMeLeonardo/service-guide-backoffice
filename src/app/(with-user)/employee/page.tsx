@@ -4,7 +4,6 @@ import EmployeeItem from "@/components/EmployeeItem";
 import TextInput from "@/components/Form/TextInput";
 import SearchIcon from "@/icons/SearchIcon";
 import UserDetail from "./Components/UserDetail";
-// import { EMPLOYEES } from "./data";
 import { useState } from "react";
 import { Employee } from "@/domain/employee/client";
 import AddIcon from "@/icons/AddIcon";
@@ -39,8 +38,6 @@ const services = [
 
 export default function Employee() {
   const [filterWord, setFilterWord] = useState("");
-
-  const [showEditor, setShowEditor] = useState(true);
 
   const [employees, setEmployees] = useLocalStorage<Employee[]>(
     "EMPLOYEES",

@@ -38,7 +38,7 @@ export default function Login() {
     signIn("credentials", {
       email,
       password,
-      callbackUrl: "/home",
+      callbackUrl: "/dashboard",
       redirect: false,
     })
       .then((result) => {
@@ -47,7 +47,7 @@ export default function Login() {
           handleError();
         }
         if (result?.ok) {
-          router.push("/home");
+          router.push("/dashboard");
         }
       })
       .catch((error) => {
