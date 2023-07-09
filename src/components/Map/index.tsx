@@ -1,32 +1,29 @@
 "use client";
-import { Map } from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { useEffect, useRef } from "react";
+import { ReactNode } from "react";
+import ReactMapGL from "react-map-gl";
 
-export const initMap = (
-  container: HTMLDivElement,
-  coords: [number, number]
-): Map => {
-  return new Map({
-    container,
-    style: "mapbox://styles/mapbox/light-v11",
-    pitchWithRotate: false,
-    center: coords,
-    zoom: 10,
-    accessToken:
-      "pk.eyJ1IjoiaXRzbWVsZW9uYXJkbyIsImEiOiJja3ZzcmpoMTU0czBtMm9tbHZhbTMzYTFrIn0.fgwmkMuUlIaqcnXtQjbWfQ",
-    doubleClickZoom: false,
-  });
+type Props = {
+  children?: ReactNode;
 };
 
-export default function MapView() {
-  const mapRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (mapRef.current) {
-      initMap(mapRef.current, [-77.036526, -12.062106]);
-    }
-  }, []);
-
-  return <div ref={mapRef} className="map w-full h-full" />;
+export default function MapView({ children }: Props) {
+  return (
+    <ReactMapGL
+      mapLib={import("mapbox-gl")}
+      mapboxAccessToken="pk.eyJ1IjoiaXRzbWVsZW9uYXJkbyIsImEiOiJja3ZzcmpoMTU0czBtMm9tbHZhbTMzYTFrIn0.fgwmkMuUlIaqcnXtQjbWfQ"
+      mapStyle="mapbox://styles/mapbox/light-v11"
+      initialViewState={{
+        longitude: -77.036526,
+        latitude: -12.062106,
+        zoom: 10,
+      }}
+      style={{
+        width: "100%",
+        height: "100%",
+      }}
+    >
+      {children}
+    </ReactMapGL>
+  );
 }

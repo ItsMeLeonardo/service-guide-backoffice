@@ -59,7 +59,7 @@ export default function Employee() {
   };
 
   return (
-    <section className="grid grid-cols-2 gap-4 h-full overflow-hidden">
+    <section className="grid grid-cols-2 gap-4 grid-rows-1 h-full overflow-hidden">
       <div className="flex flex-col h-full overflow-hidden">
         <div className="w-full mb-4 flex flex-col gap-4">
           <h2 className="font-serif text-2xl font-bold">Guias de usuario</h2>
@@ -87,9 +87,9 @@ export default function Employee() {
             {services.map((service) => (
               <button
                 key={service.value}
-                onClick={() => handleToggleFilter(service.value)}
+                onClick={() => handleToggleFilter(service.name)}
                 className={`bg-white rounded-lg py-1 px-4 hover:bg-gray-100 whitespace-nowrap ${
-                  filterSelected.includes(service.value) &&
+                  filterSelected.includes(service.name) &&
                   "!bg-indigo-500 text-white"
                 }`}
               >
@@ -107,7 +107,7 @@ export default function Employee() {
             })
             .filter((employee) => {
               if (filterSelected.length === 0) return true;
-              return filterSelected.includes(employee.service);
+              return filterSelected.includes(employee.apartment);
             })
             .map((employee) => (
               <EmployeeItem
@@ -115,8 +115,9 @@ export default function Employee() {
                 selected={employeeSelected?.id === employee.id}
                 employee={employee}
                 serviceLabel={
-                  services.find((service) => service.value === employee.service)
-                    ?.name || ""
+                  services.find(
+                    (service) => service.value === employee.apartment
+                  )?.name || ""
                 }
                 onClick={() => setEmployeeSelected(employee)}
               />

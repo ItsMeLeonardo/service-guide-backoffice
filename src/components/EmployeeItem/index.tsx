@@ -21,7 +21,7 @@ export default function EmployeeItem(props: Props) {
       }`}
       onClick={onClick}
     >
-      <Avatar name={employee.name} src={employee.avatar} size={40} />
+      <Avatar name={employee.name} size={40} />
       <div className="flex flex-col items-start flex-grow ">
         <span className="text-xs font-bold">{employee.name}</span>
         <span className="text-xs text-gray-400">{serviceLabel}</span>

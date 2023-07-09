@@ -1,13 +1,12 @@
 "use client";
 import Avatar from "@/components/Avatar";
-import { Employee } from "@/domain/employee/client";
-import AddIcon from "@/icons/AddIcon";
+import { APARTMENTS, Employee, POSITIONS } from "@/domain/employee/client";
 import CallIcon from "@/icons/CallIcon";
-import MoreIcon from "@/icons/MoreIcon";
 import SmsEditIcon from "@/icons/SmsEditIcon";
-import { Button, TextInput } from "flowbite-react";
+import { Button, Select, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import AddressInput from "./AddressInput";
 
 type Props = {
   employee?: Employee | null;
@@ -25,26 +24,29 @@ export default function UserDetail(props: Props) {
 
   useEffect(() => {
     if (!employee) {
+      setValue("id", "");
       setValue("name", "");
-      setValue("jobTitle", "");
+      setValue("age", 0);
+      setValue("direction", "");
+      setValue("evaluation", 0);
       setValue("email", "");
-      setValue("phone", "");
       setValue("salary", 0);
-      setValue("birthDate", "");
-      setValue("experience", 0);
-      setValue("address", "");
+      setValue("phone", "");
       setIsEditing(true);
       return;
     }
+
     setIsEditing(false);
+    setValue("id", employee.id);
     setValue("name", employee.name);
-    setValue("jobTitle", employee.jobTitle);
+    setValue("age", employee.age);
+    setValue("apartment", employee.apartment);
+    setValue("direction", employee.direction);
+    setValue("evaluation", employee.evaluation);
+    setValue("position", employee.position);
+    setValue("salary", employee.salary);
     setValue("email", employee.email);
     setValue("phone", employee.phone);
-    setValue("salary", employee.salary);
-    setValue("birthDate", employee.birthDate);
-    setValue("experience", employee.experience);
-    setValue("address", employee.address);
   }, [employee, setValue]);
 
   const onSubmit = (data: Employee) => {
@@ -67,11 +69,7 @@ export default function UserDetail(props: Props) {
       className="w-full h-full flex items-center flex-col gap-4 p-4"
     >
       <header className="flex flex-col items-center">
-        <Avatar
-          name={isEditing ? nameWatch : employee?.name}
-          src={employee?.avatar}
-          size={80}
-        />
+        <Avatar name={isEditing ? nameWatch : employee?.name} size={80} />
 
         {isEditing ? (
           <TextInput
@@ -86,28 +84,37 @@ export default function UserDetail(props: Props) {
         )}
 
         {isEditing ? (
-          <TextInput
-            placeholder="Cargo"
-            className="my-2"
-            {...register("jobTitle", {
-              required: true,
-            })}
-          />
+          <Select
+            id="countries"
+            required
+            onChange={(e) => {
+              const value = e.target.value;
+              const position = POSITIONS.find((p) => p === value);
+              if (!position) return;
+              setValue("position", position);
+            }}
+          >
+            {POSITIONS.map((position) => (
+              <option key={position} value={position}>
+                {position}
+              </option>
+            ))}
+          </Select>
         ) : (
           <span className="text-sm text-gray-400">
             <span className="text-sm font-bold">Cargo:</span>{" "}
-            {employee?.jobTitle}
+            {employee?.position}
           </span>
         )}
       </header>
       {!isEditing && (
         <div className="flex gap-8 items-start">
-          <button className="flex flex-col gap-2 items-center justify-center text-gray-400 hover:text-indigo-400">
+          {/* <button className="flex flex-col gap-2 items-center justify-center text-gray-400 hover:text-indigo-400">
             <span className="flex items-center text-xl justify-center p-1.5 border border-gray-200 rounded-full">
               <AddIcon />
             </span>
             <span className="text-xs">Actividad</span>
-          </button>
+          </button> */}
           <button className="flex flex-col gap-2 items-center justify-center text-gray-400 hover:text-indigo-400">
             <span className="flex items-center text-xl justify-center p-1.5 border border-gray-200 rounded-full">
               <SmsEditIcon />
@@ -120,19 +127,16 @@ export default function UserDetail(props: Props) {
             </span>
             <span className="text-xs">Llamar</span>
           </button>
-          <button className="flex flex-col gap-2 items-center justify-center text-gray-400 hover:text-indigo-400">
+          {/*           <button className="flex flex-col gap-2 items-center justify-center text-gray-400 hover:text-indigo-400">
             <span className="flex items-center text-xl justify-center p-1.5 border border-gray-200 rounded-full">
               <MoreIcon />
             </span>
             <span className="text-xs">Opciones</span>
-          </button>
+          </button> */}
         </div>
       )}
       {employee && !isEditing && (
-        <div className="w-full grid grid-cols-2 max-w-[300px] gap-2">
-          <button className="w-full p-3 text-indigo-50 bg-indigo-700 text-sm rounded-lg">
-            Enviar Alerta
-          </button>
+        <div className="w-full mx-auto max-w-[150px] gap-2">
           <button
             className="w-full p-3 bg-indigo-50 text-indigo-700 text-sm rounded-lg"
             onClick={() => {
@@ -154,12 +158,40 @@ export default function UserDetail(props: Props) {
           Cancelar
         </button>
       )}
-      <section className="w-full px-4 pl-8">
+      <section className="w-full px-4 pl-8 overflow-y-auto overflow-x-hidden">
         <header className="w-full text-center mb-2">
           <h4 className="font-bold">Información del empleado</h4>
         </header>
         <div className="grid grid-cols-2 gap-2 mx-auto">
           <div className="flex flex-col gap-4">
+            <div className="flex flex-col">
+              <span className="text-sm text-gray-400">
+                Departamento / Apartamento
+              </span>
+              {isEditing ? (
+                <Select
+                  id="countries"
+                  required
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    const apartment = APARTMENTS.find((p) => p === value);
+                    if (!apartment) return;
+                    setValue("apartment", apartment);
+                  }}
+                >
+                  {APARTMENTS.map((apartment) => (
+                    <option key={apartment} value={apartment}>
+                      {apartment}
+                    </option>
+                  ))}
+                </Select>
+              ) : (
+                <span className="text-base text-gray-700 w-full max-w-[22ch] overflow-hidden whitespace-nowrap text-ellipsis">
+                  <a href="mailto:anna@gmail.com">{employee?.apartment}</a>
+                </span>
+              )}
+            </div>
+
             <div className="flex flex-col">
               <span className="text-sm text-gray-400">Email</span>
               {isEditing ? (
@@ -175,6 +207,7 @@ export default function UserDetail(props: Props) {
                 </span>
               )}
             </div>
+
             <div className="flex flex-col">
               <span className="text-sm text-gray-400">
                 Teléfono <span className="text-gray-500">(Celular)</span>
@@ -211,56 +244,54 @@ export default function UserDetail(props: Props) {
                 </span>
               )}
             </div>
-            <div className="flex flex-col">
-              <span className="text-sm text-gray-400">Fecha de nacimiento</span>
-              {isEditing ? (
-                <TextInput
-                  type="date"
-                  {...register("birthDate", {
-                    required: true,
-                  })}
-                />
-              ) : (
-                <span className="text-base text-gray-700">
-                  {employee?.birthDate &&
-                    new Date(employee?.birthDate).toLocaleDateString()}
-                </span>
-              )}
-            </div>
           </div>
           <div className="flex flex-col gap-4">
             <div className="flex flex-col">
-              <span className="text-sm text-gray-400">
-                Experiencia <span className="text-gray-500">(Años)</span>
-              </span>
+              <span className="text-sm text-gray-400">Edad</span>
               {isEditing ? (
                 <TextInput
                   type="number"
-                  {...register("experience", {
+                  {...register("age", {
                     required: true,
                   })}
                 />
               ) : (
                 <span className="text-base text-gray-700">
-                  {employee?.experience}{" "}
-                  <span className="text-gray-500">años</span>
+                  {employee?.age} <span className="text-gray-500">años</span>
                 </span>
               )}
             </div>
             <div className="flex flex-col">
-              <span className="text-sm text-gray-400">
-                Dirección <span className="text-gray-500">(Domicilio)</span>
-              </span>
+              <span className="text-sm text-gray-400">Evaluación</span>
               {isEditing ? (
                 <TextInput
-                  type="text"
-                  {...register("address", {
+                  type="number"
+                  {...register("evaluation", {
                     required: true,
                   })}
                 />
               ) : (
                 <span className="text-base text-gray-700">
-                  {employee?.address || "No registrado"}
+                  {employee?.evaluation}
+                </span>
+              )}
+            </div>
+            <div className="flex flex-col">
+              <span className="text-sm text-gray-400">Dirección</span>
+              {isEditing ? (
+                <AddressInput
+                  onSelected={(place) => {
+                    setValue("direction", place.place_name);
+                    const [longitude, latitude] = place.center;
+
+                    setValue("longitude", longitude);
+                    setValue("latitude", latitude);
+                  }}
+                  direction={employee?.direction}
+                />
+              ) : (
+                <span className="text-base text-gray-700">
+                  {employee?.direction || "No registrado"}
                 </span>
               )}
             </div>
