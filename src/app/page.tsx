@@ -84,7 +84,7 @@ export default function Login() {
         <form className=" w-full flex flex-col gap-4" onSubmit={handleSubmit}>
           <h3 className="text-lg font-bold text-center">Iniciar sesión</h3>
           <TextInput
-            defaultValue="admin@gmail.com"
+            defaultValue="test@gmail.com"
             name="email"
             placeholder="example@mail.com"
             type="email"

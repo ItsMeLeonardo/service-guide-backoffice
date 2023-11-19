@@ -37,14 +37,14 @@ export default function AiOptions(props: Props) {
         className="absolute z-10 bg-white shadow-pale right-3 top-14 p-2 w-full max-w-xs rounded-2xl overflow-hidden"
       >
         <AutomaticallyGeneration onGenerate={onGenerate} />
-        <button className="w-full p-2 hover:bg-orange-50 hover:text-orange-500 cursor-pointer rounded-lg text-sm flex items-center justify-start gap-2">
+        {/*    <button className="w-full p-2 hover:bg-orange-50 hover:text-orange-500 cursor-pointer rounded-lg text-sm flex items-center justify-start gap-2">
           <DoubleCheckIcon className="text-xl" />
           <span>Corregir ortografía</span>
         </button>
         <button className="w-full p-2 hover:bg-pink-50 hover:text-pink-500 cursor-pointer rounded-lg text-sm flex items-center justify-start gap-2">
           <SuggestionIcon className="text-xl" />
           <span>Sugerir cambios</span>
-        </button>
+        </button> */}
 
         <button
           className="w-full p-2 hover:bg-lime-50 hover:text-lime-500 cursor-pointer rounded-lg text-sm flex items-center justify-start gap-2"
